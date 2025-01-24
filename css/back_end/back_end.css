@@ -1,0 +1,70 @@
+    body {
+            /* overflow: hidden; */
+            background: linear-gradient(to right, rgb(9, 119, 156), rgb(10, 122, 191));
+            /* Gradient background for body */
+    }
+    h1, h4 {
+        text-shadow: 5px 1px 1px black, 7px 1px 10px white;
+        color: aliceblue;
+        font-weight: bold;
+    }
+    h4 {
+        font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+        #list-item-1 {
+            margin-top: 43px;
+        }
+    }
+
+
+    .content-item {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: none;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes zoomIn {
+        from {
+            transform: scale(0);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    .fade-in {
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .slide-in {
+        animation: slideIn 1s ease-in-out;
+    }
+
+    .text_color_nav_link {
+        color: white;
+    }
