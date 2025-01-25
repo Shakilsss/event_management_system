@@ -1,12 +1,12 @@
 let currentItem = null;
 
 function showItem(itemId) {
-    const animations = ['fade-in', 'slide-in', 'zoom-in'];
+    const animations = ['fade-in'];
     const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
 
     if (currentItem && currentItem.id !== itemId) {
         currentItem.style.display = 'none';
-        currentItem.classList.remove('fade-in', 'slide-in', 'zoom-in');
+        currentItem.classList.remove('fade-in');
     }
 
     const item = document.getElementById(itemId);

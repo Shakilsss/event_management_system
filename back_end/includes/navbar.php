@@ -1,4 +1,30 @@
 <!-- for web -->
+<?php
+    if(isset($_GET['logout'])){
+        session_unset();
+        header('location: login.php');
+    //     echo "<script>
+    //  const Toast = Swal.mixin({
+    //             toast: true,
+    //             position: 'top-end',
+    //             showConfirmButton: false,
+    //             timer: 1500,
+    //             timerProgressBar: true,
+    //             didOpen: (toast) => {
+    //                 toast.onmouseenter = Swal.stopTimer;
+    //                 toast.onmouseleave = Swal.resumeTimer;
+    //             }
+    //             });
+    //             Toast.fire({
+    //             icon: 'success',
+    //             title: 'Logged out successfully'
+    //             }).then(function() {
+    //                     window.location.href = 'login.php';
+    //                 });
+    //     </script>";
+    }
+?>
+
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse position-fixed" style="height: 100%; background: linear-gradient(to bottom, #127e74, #127e74);">
     <h4>Admin Dashboard</h4>    
 <div class="sidebar-sticky pt-3">
@@ -35,7 +61,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="#">Profile</a>
             <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF']; ?>?logout">Logout</a>
         </div>
     </div>
 </div>
