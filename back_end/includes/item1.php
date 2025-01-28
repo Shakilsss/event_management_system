@@ -8,7 +8,7 @@
     <div class="row">
         <?php for ($i = 1; $i <= 8; $i++): ?>
         <div class="col-md-3 mb-4">
-            <div class="card" style="background: linear-gradient(to right,rgb(78, 180, 136),rgb(4, 187, 178));">
+            <div class="card" style="background: #28a745a1  ">
             <!-- <img src="https://via.placeholder.com/150" class="card-img-top" alt="Event Image"> -->
             <div class="card-body">
                 <h5 class="card-title">Event <?php echo $i; ?></h5>

@@ -1,11 +1,22 @@
-<div id="list-item-2" class="content-item">
+<style>
+    .page-item.active .page-link {
+    z-index: 3;
+    color: white;
+    background-color: #529962;
+    border-color: #28a745;
+}
+.page-link{
+     color: #28a745;
+}
+</style>
+<div id="list-item-2" class="content-item" style="color:#28a745">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4 class="text-center">Manage Event</h4>
     </div>
     <h4>Event List</h4>
     <div class="d-flex justify-content-between mb-3">
-        <input type="text" id="search-input" class="form-control" placeholder="Search events...">
-        <select id="sort-select" class="form-control">
+        <input type="text" id="search-input" class="form-control w-25" placeholder="Search events...">
+        <select id="sort-select" class="form-control w-25">
             <option value="id">Sort by ID</option>
             <option value="name">Sort by Name</option>
             <option value="date">Sort by Date</option>
@@ -30,8 +41,8 @@
         // ... (add more events as needed)
     ];
     ?>
-    <table class="table table-striped" id="events-table">
-        <thead>
+    <table class="table table-striped table-sm" id="events-table">
+        <thead style="color:#28a745">
             <tr>
                 <th>Event ID <span id="sort-id" class="sort-icon">&#9650;</span></th>
                 <th>Event Name <span id="sort-name" class="sort-icon">&#9650;</span></th>
@@ -39,7 +50,7 @@
                 <th>Location <span id="sort-location" class="sort-icon">&#9650;</span></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="color:#28a745">
             <!-- Event rows will be populated by JavaScript -->
         </tbody>
     </table>
