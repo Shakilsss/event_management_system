@@ -1,3 +1,11 @@
+<?php
+    require_once '../vendor/autoload.php';
+    use App\classes\GetEvents;
+
+$getEvents = new GetEvents();
+$events = $getEvents->getEvents();
+?>
+
 <style>
     .page-item.active .page-link {
     z-index: 3;
@@ -14,47 +22,45 @@
         <h4 class="text-center">Manage Event</h4>
     </div>
     <h4>Event List</h4>
-    <div class="d-flex justify-content-between mb-3">
-        <input type="text" id="search-input" class="form-control w-25" placeholder="Search events...">
-        <select id="sort-select" class="form-control w-25">
-            <option value="id">Sort by ID</option>
-            <option value="name">Sort by Name</option>
-            <option value="date">Sort by Date</option>
-            <option value="location">Sort by Location</option>
-        </select>
+    <div class="d-flex  mb-3">
+        <div class="d-flex  col-md-9" style="margin-left: -15px;">
+            <input type="text" id="search-input" class="form-control w-25" placeholder="Search events...">
+            <select id="sort-select" class="form-control w-25 ml-4" >
+                <option value="id">Sort by ID</option>
+                <option value="name">Sort by Name</option>
+                <option value="date">Sort by Date</option>
+                <option value="location">Sort by Location</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button id="download-csv" class="btn btn-success">Download CSV</button>
+            <button id="add-event" class="btn btn-success">+ Add Event</button>
+        </div>
     </div>
-    <?php
-    // Sample data
-    $events = [
-        ['id' => 1, 'name' => 'Annual Meeting', 'date' => '2023-11-15', 'location' => 'New York'],
-        ['id' => 2, 'name' => 'Tech Conference', 'date' => '2023-12-05', 'location' => 'San Francisco'],
-        ['id' => 3, 'name' => 'Music Festival', 'date' => '2024-01-20', 'location' => 'Los Angeles'],
-        ['id' => 4, 'name' => 'Cultural Festival', 'date' => '2024-02-10', 'location' => 'Chicago'],
-        ['id' => 5, 'name' => 'Food Festival', 'date' => '2024-03-25', 'location' => 'Miami'],
-        ['id' => 6, 'name' => 'Sports Event', 'date' => '2024-04-15', 'location' => 'Seattle'],
-        ['id' => 7, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        ['id' => 8, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        ['id' => 9, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        ['id' => 10, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        ['id' => 11, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        ['id' => 12, 'name' => 'Entertainment Event', 'date' => '2024-05-05', 'location' => 'Boston'],
-        // ... (add more events as needed)
-    ];
-    ?>
+
     <table class="table table-striped table-sm" id="events-table">
         <thead style="color:#28a745">
             <tr>
-                <th>Event ID <span id="sort-id" class="sort-icon">&#9650;</span></th>
-                <th>Event Name <span id="sort-name" class="sort-icon">&#9650;</span></th>
-                <th>Date <span id="sort-date" class="sort-icon">&#9650;</span></th>
-                <th>Location <span id="sort-location" class="sort-icon">&#9650;</span></th>
+                <th>ID<span id="sort-id" class="sort-icon">&#9650;</span></th>
+                <th>Event Name<span id="sort-event_name" class="sort-icon">&#9650;</span></th>
+                <th>Description</th>
+                <th>Start Date<span id="sort-start_date" class="sort-icon">&#9650;</span></th>
+                <th>End Date</th>
+                <th>Location<span id="sort-location" class="sort-icon">&#9650;</span></th>
+                <th>Organizer</th>
+                <!-- <th>Contact Email</th>
+                <th>Contact Phone</th>
+                <th>Event Image</th> -->
+                <th>Capacity</th>
+                <th>Is Free</th>
+                <th>Price</th>
             </tr>
         </thead>
+        
         <tbody style="color:#28a745">
-            <!-- Event rows will be populated by JavaScript -->
         </tbody>
     </table>
-    <div id="no-results-message" style="display: none;">No events found.</div>
+    <div id="no-results-message" style="display: none; text-align:center;font-weight:bold">No events found.</div>
 
     <nav>
         <ul class="pagination" id="pagination">
@@ -75,9 +81,9 @@
         function renderTable(page) {
             const startIndex = (page - 1) * itemsPerPage;
             const filteredEvents = events.filter(event => 
-                event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                event.event_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                event.date.includes(searchQuery)
+                event.start_date.includes(searchQuery)
             );
             const sortedEvents = filteredEvents.sort((a, b) => {
                 if (a[sortBy] < b[sortBy]) return sortOrder === 'asc' ? -1 : 1;
@@ -92,24 +98,34 @@
                 document.getElementById('no-results-message').style.display = 'block';
             } else {
                 document.getElementById('no-results-message').style.display = 'none';
+                let sl = 1;
                 paginatedEvents.forEach(event => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${event.id}</td>
-                        <td>${event.name}</td>
-                        <td>${event.date}</td>
-                        <td>${event.location}</td>
+                    <td>${sl++}</td>
+                    <td>${event.event_name}</td>
+                    <td>${event.description}</td>
+                    <td>${event.start_date}</td>
+                    <td>${event.end_date}</td>
+                    <td>${event.location}</td>
+                    <td>${event.organizer}</td>
+                    <td>${event.capacity}</td>
+                    <td>${event.is_free}</td>
+                    <td>${event.price}</td>
                     `;
                     tbody.appendChild(row);
                 });
             }
         }
+        // // <td>${event.contact_email}</td>
+        // // <td>${event.contact_phone}</td>
+        // <td>${event.event_image}</td>
 
         function renderPagination() {
             const filteredEvents = events.filter(event => 
-                event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                event.event_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                event.date.includes(searchQuery)
+                event.start_date.includes(searchQuery)
             );
             const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
             const pagination = document.getElementById('pagination');
@@ -158,5 +174,23 @@
 
         renderTable(currentPage);
         renderPagination();
+    });
+</script>
+
+<script>
+    document.getElementById('download-csv').addEventListener('click', function () {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Event ID,Event Name,Date,Location\n";
+        events.forEach(event => {
+            csvContent += `${event.id},${event.name},${event.date},${event.location}\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'events.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
 </script>
