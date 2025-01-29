@@ -71,8 +71,8 @@ if (isset($_SESSION['user_id'])) {
                 }
                 });
                 Toast.fire({
-                icon: 'success',
-                title: 'Login successfully'
+                    icon: 'success',
+                    title: 'Login successfully'
                 }).then(function() {
                         window.location.reload();
                     });

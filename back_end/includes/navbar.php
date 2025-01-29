@@ -9,21 +9,24 @@
     .actives{
         color:#28a745!important; /* Attractive tomato color on hover */
         transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out; /* Smooth transition effect */
-        border:1px solid white;
-        border-right: 14px solid #28a745;
-        /* border-radius:10px; */
-        background: white;
+        /* border:1px solid white; */
+        border-left: 5px solid  rgb(6, 110, 30);
+        border-right: 5px solid rgb(6, 110, 30);
+        border-radius:10px;
+        background: rgb(187, 248, 201);
+        font-weight:bold;
 
 
     }
 
     .text_color_nav_link:hover{
-        color: #28a745!important; /* Attractive tomato color on hover */
+        color:#28a745!important; 
         transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out; /* Smooth transition effect */
-        border:1px solid white;
-        border-left: 14px solid #28a745;
-        /* border-radius:10px; */
-        background: white;
+        /* border:1px solid white; */
+        border-left: 5px solid  rgb(6, 110, 30);
+        border-right: 5px solid rgb(6, 110, 30);
+        border-radius:10px;
+        background: rgb(187, 248, 201);
     }
 
     
@@ -131,3 +134,5 @@
         }
     });
 </script>
+
+

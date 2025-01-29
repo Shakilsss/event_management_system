@@ -23,18 +23,147 @@ $events = $getEvents->getEvents();
     </div>
     <h4>Event List</h4>
     <div class="d-flex  mb-3">
-        <div class="d-flex  col-md-9" style="margin-left: -15px;">
-            <input type="text" id="search-input" class="form-control w-25" placeholder="Search events...">
-            <select id="sort-select" class="form-control w-25 ml-4" >
+        <div class="d-flex  col-md-8" style="margin-left: -15px;">
+            <input type="text" id="search-input" class="form-control w-50" placeholder="Search events...">
+            <select id="sort-select" class="form-control w-50 ml-4" >
                 <option value="id">Sort by ID</option>
                 <option value="name">Sort by Name</option>
                 <option value="date">Sort by Date</option>
                 <option value="location">Sort by Location</option>
             </select>
         </div>
-        <div class="col-md-3">
-            <button id="download-csv" class="btn btn-success">Download CSV</button>
-            <button id="add-event" class="btn btn-success">+ Add Event</button>
+        <div class="col-md-4">
+            <button id="download-csv" class="btn btn-info btn-sm">Download CSV</button>
+            <button id="add-event" class="btn btn-primary btn-sm"><i class='fas fa-plus'></i>Add Event</button>
+        <!-- Add Event Modal -->
+        <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEventModalLabel"><b>Add New Event</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-event-form" method="POST">
+                            <div class="form-group">
+                                <label for="event-name">Event Name</label>
+                                <input type="text" class="form-control" name="event_name" id="event-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-description">Description</label>
+                                <textarea class="form-control" name="description" id="event-description" required></textarea>
+                            </div>
+                            <div class="form-group d-flex" >
+                               <div class='col-6' style='margin-left:-15px'>
+                                 <label for="event-start-date">Start Date</label>
+                                <input type="date" class="form-control" name="start_date" id="event-start-date" required>
+                               </div>
+
+                                <div class='col-6' style='margin-left:-15px'>
+                                    <label for="event-end-date">End Date</label>
+                                    <input type="date" class="form-control" name="end_date" id="event-end-date" required>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group"> -->
+                         
+                            <!-- </div> -->
+                            <div class="form-group d-flex" >
+                                <div class='col-6' style='margin-left:-15px'>
+                                    <label for="event-location">Location</label>
+                                    <input type="text" class="form-control" name="location" id="event-location" required>
+                               </div>
+
+                                <div class='col-6' style='margin-left:-15px'>
+                                    <label for="event-organizer">Organizer</label>
+                                    <input type="text" class="form-control" name="organizer" id="event-organizer" required>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex" style='margin-left:-15px'>
+                                <div class="col-4">
+                                    <label for="event-capacity">Capacity</label>
+                                    <input type="number" class="form-control" name="capacity" id="event-capacity" required>
+                                </div>
+                           
+                                <div class="col-4">
+                                    <label for="event-is-free">Is Free</label>
+                                    <select class="form-control" name="is_free" id="event-is-free" required>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-4" id="eventPriceDiv">                       
+                                    <label for="event-price">Price</label>
+                                    <input type="number" class="form-control"  name="price" id="event-price" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm">Add Event</button>
+                        </form>
+                    <script>
+                        document.getElementById('add-event-form').addEventListener('submit', function (e) {
+                            e.preventDefault();
+                            const formData = new FormData(this);
+                            var xhr = new XMLHttpRequest();
+                            // console.log(formData);
+                            
+                            xhr.open('POST', 'add_event_check.php', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onreadystatechange = function(e) {
+                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                    if (xhr.responseText == 'true') {
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                            timerProgressBar: true,
+                                            // didOpen: (toast) => {
+                                            //     toast.onmouseenter = Swal.stopTimer;
+                                            //     toast.onmouseleave = Swal.resumeTimer;
+                                            // }
+                                        });
+                                        Toast.fire({
+                                            icon: 'success',
+                                            title: 'Event added successfully'
+                                        }).then(function() {
+                                                window.location.reload();
+                                        });
+                                    } else {
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            // didOpen: (toast) => {
+                                            //     toast.onmouseenter = Swal.stopTimer;
+                                            //     toast.onmouseleave = Swal.resumeTimer;
+                                            // }
+                                        });
+                                        Toast.fire({
+                                            icon: 'error',
+                                            title: 'Event not saved'
+                                        });
+                                    }
+                                }
+                            };
+                            var encodedData = new URLSearchParams(formData).toString();
+                            var encodedData = new URLSearchParams(formData).toString();
+                            xhr.send(encodedData);
+                        });
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('add-event').addEventListener('click', function () {
+                $('#addEventModal').modal('show');
+            });
+        </script>
         </div>
     </div>
 
@@ -192,5 +321,20 @@ $events = $getEvents->getEvents();
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    });
+</script>
+
+<script>
+    const eventPriceDiv  = document.getElementById('eventPriceDiv');
+    eventPriceDiv.style.display = 'none';
+
+    document.getElementById('event-is-free').addEventListener('change', function() {
+        const eventIsFree = document.getElementById('event-is-free');
+        // alert(eventIsFree.value);
+        if(eventIsFree.value == "0"){
+            eventPriceDiv.style.display = 'block';
+        }else{
+            eventPriceDiv.style.display = 'none';
+        }
     });
 </script>
