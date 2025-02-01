@@ -1,9 +1,19 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id'])) {
-    header('location: index.php');
+
+// If session is not set, redirect to login.php (without fragment)
+if (isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF']) === "login.php") {
+    header('Location: index.php');
+    exit();
+}
+
+// If session exists, redirect to index.php
+if (isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF']) === "login.php") {
+    header('Location: index.php');
+    exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,5 +112,25 @@ if (isset($_SESSION['user_id'])) {
             });
         });
     </script>
+
+<script>
+  function cleanURL() {
+      if (window.location.hash) {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+  }
+
+  function handleEnterKey(event) {
+      if (event.key === "Enter") {
+          setTimeout(cleanURL, 10);
+      }
+  }
+
+  window.addEventListener("load", cleanURL);
+  document.addEventListener("keydown", handleEnterKey);
+</script>
+
+
+
 </body>
 </html>

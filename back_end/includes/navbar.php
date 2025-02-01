@@ -15,8 +15,6 @@
         border-radius:10px;
         background: rgb(187, 248, 201);
         font-weight:bold;
-
-
     }
 
     .text_color_nav_link:hover{
@@ -28,8 +26,6 @@
         border-radius:10px;
         background: rgb(187, 248, 201);
     }
-
-    
 </style>
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse position-fixed" style="height: 100%; background: #28a745;">
@@ -65,17 +61,13 @@
                 </a>
                 <hr>
             </li>
+            <li>
+                <a class="text_color_nav_link nav-link" href="<?php echo $_SERVER['PHP_SELF']; ?>?logout">Logout</a>
+            </li>
         </ul>
     </div>                
-    <div class="fixed-bottom" style="width: 220px;text-align: center;">
-        <div class="dropdown">
-            <img src="../front_end/assets/e_logo.png" class="rounded-circle dropdown-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" alt="Profile Image" style="height: 30px; width: 30px;">
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF']; ?>?logout">Logout</a>
-            </div>
-        </div>
+    <div class="fixed-bottom" style="margin-left: 50px;">
+        <!-- <button class='btn btn-info btn-sm d-block text-center'><a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF']; ?>?logout">Logout</a></button> -->
     </div>
 </nav>
 
@@ -122,17 +114,29 @@
     // Function to set the active class on page load based on local storage or URL
     document.addEventListener('DOMContentLoaded', function() {
         var activeNavLink = localStorage.getItem('activeNavLink');
-        var urlPath = window.location.pathname.split('/').pop();
-        
-        if (activeNavLink) {
+        var urlHash = window.location.hash;
+        var currentPath = window.location.pathname;
+
+        if (currentPath.includes('back_end/index.php')) {
+            setActive('nav-dashboard');
+        } else if (urlHash) {
+            var urlElement = document.querySelector(`.nav-link[href="${urlHash}"]`);
+            if (urlElement) {
+                setActive(urlElement.id);
+            }
+        } else if (activeNavLink) {
             setActive(activeNavLink);
-        } else {
-            var urlElement = document.querySelector(`.nav-link[href="#${urlPath}"]`);
+        }
+    });
+
+    // Listen for hash changes and update the active class accordingly
+    window.addEventListener('hashchange', function() {
+        var urlHash = window.location.hash;
+        if (urlHash) {
+            var urlElement = document.querySelector(`.nav-link[href="${urlHash}"]`);
             if (urlElement) {
                 setActive(urlElement.id);
             }
         }
     });
 </script>
-
-

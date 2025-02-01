@@ -18,7 +18,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="#">
-        <img src="assets/e_logo.png" style="height:50px;width:50px;">    Event Management
+        <img src="../images/front_end/e_logo.png" style="height:50px;width:50px;">    Event Management
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,21 +49,21 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="assets/slider_images/slider1.jpg" class="d-block w-100" alt="First slide" style="height: 56.25vh; object-fit: cover;">
+                <img src="../images/front_end/slider_images/slider1.jpg" class="d-block w-100" alt="First slide" style="height: 56.25vh; object-fit: cover;">
                 <div class="carousel-caption d-md-block" style="background-color: rgba(0, 0, 0, 0.5);">
                     <h5>First Slide</h5>
                     <p>Description for the first slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="assets/slider_images/slider2.jpg" class="d-block w-100" alt="Second slide" style="height: 56.25vh; object-fit: cover;">
+                <img src="../images/front_end/slider_images/slider2.jpg" class="d-block w-100" alt="Second slide" style="height: 56.25vh; object-fit: cover;">
                 <div class="carousel-caption  d-md-block" style="background-color: rgba(0, 0, 0, 0.5);">
                     <h5>Second Slide</h5>
                     <p>Description for the second slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="assets/slider_images/slider2.jpg" class="d-block w-100" alt="Third slide" style="height: 56.25vh; object-fit: cover;">
+                <img src="../images/front_end/slider_images/slider2.jpg" class="d-block w-100" alt="Third slide" style="height: 56.25vh; object-fit: cover;">
                 <div class="carousel-caption  d-md-block" style="background-color: rgba(0, 0, 0, 0.5);">
                     <h5>Third Slide</h5>
                     <p>Description for the third slide.</p>

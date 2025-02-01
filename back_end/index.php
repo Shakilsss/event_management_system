@@ -2,11 +2,12 @@
     session_start();
     if(!$_SESSION['user_id']){
         header('location: login.php');
-}
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">    
-<?php include('includes/head.php');?>
+<?php include('includes/head.php');
+?>
 <body data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
     <div class="container-fluid">
         <div class="row" style="height: 100vh;">
