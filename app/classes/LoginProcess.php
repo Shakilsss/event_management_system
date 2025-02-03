@@ -17,19 +17,19 @@ class LoginProcess {
         $result = $this->db->query($query);
         $user = $result->fetch_assoc();
         // echo "<pre>"; print_r($user);exit;
-        if ($user && password_verify($password, $user['user_password'])) {
-            // exit('KO');
-            session_start(); 
-            $_SESSION['user_id']      = $user['id'];
-            $_SESSION['user_name']    = $user['user_name'];
-            $_SESSION['user_email']   = $user['user_email'];
-            $_SESSION['user_phone']   = $user['user_phone'];
-            $_SESSION['user_gender']  = $user['user_gender'];
-            $_SESSION['user_nid']     = $user['user_nid'];
-            $_SESSION['user_address'] = $user['user_address'];
-            $_SESSION['user_image']   = $user['user_image'];
-            // echo "<pre>"; print_r($_SESSION);exit;
-            return true;
+        if ($user['user_status'] == 0) {
+            return 'inactive';
+        } elseif ($user['user_status'] == 1) {
+            if ($user &&  password_verify($password, $user['user_password'])) {
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['user_name'];
+                $_SESSION['user_email'] = $user['user_email'];
+                $_SESSION['user_phone'] = $user['user_phone'];
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

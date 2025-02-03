@@ -147,7 +147,7 @@
                                 <h5 class='badge badge-info p-2'>Capacity: <?= $event['capacity'] - $event['registered_attendees']?></h5>
                             <?php }?>
                         </div>
-                        <p class="card-text"><?= $event['description']?></p>
+                        <p class="card-text" style='line-height: 15px'><?= $event['description']?></p>
                         <p class="card-text"><small class="text-muted">Location: <?= $event['location']?></small></p>
                         <p class="card-text"><small class="text-muted">Start Date: <?= date('d M Y', strtotime($event['start_date']))?>, End Date: <?= date('d M Y', strtotime($event['end_date']))?></small></p>
                         <p class="card-text"><small class="text-muted">Time: <?= date('h:i:s a', strtotime($event['event_time']))?></small></p>

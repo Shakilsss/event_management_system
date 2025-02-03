@@ -296,6 +296,7 @@ $events = $getEvents->getEvents();
                     <button class="btn btn-info btn-sm" title="View" onclick="showEvent(${event.id})"><i class='fa fa-eye'></i> </button>
                     <button class="btn btn-primary btn-sm" title="Edit" onclick="editEvent(${event.id})"><i class='fa fa-edit'></i></button>
                     <button class="btn btn-danger btn-sm" title="Delete" onclick="deleteEvent(${event.id})"><i class='fa fa-trash' ></i></button>
+                    <button class="btn btn-success btn-sm" title="Doenload as CSV" onclick="download_csv(${event.id})"><i class='fa fa-download' ></i></button>
                     </td>
                     `;
                     tbody.appendChild(row);
@@ -362,10 +363,10 @@ $events = $getEvents->getEvents();
 <script>
     document.getElementById('download-csv').addEventListener('click', function () {
         let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Sl. no,Event Name,Start Date,End Date ,Location\n";
+        csvContent += "Sl. no,Event Name, Description, Start Date, End Date, Time, Location, Organizer, Total Capacity, Total Attendee Registered\n";
         let sl =1;
         events.forEach(event => {
-            csvContent += `${sl++},${event.event_name},${event.start_date},${event.start_date},${event.location}\n`;
+            csvContent += `${sl++},${event.event_name}, ${event.description}, ${event.start_date}, ${event.end_date}, ${event.event_time}, ${event.location}, ${event.organizer}, ${event.capacity}, ${event.registered_attendees}\n`;
         });
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
@@ -375,6 +376,32 @@ $events = $getEvents->getEvents();
         link.click();
         document.body.removeChild(link);
     });
+</script>
+
+<script>
+    function download_csv(eventId) {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Sl. no, Event Name, Description, Start Date, End Date, Time, Location, Organizer, Total Capacity, Total Attendee Registered\n";
+    let sl = 1;
+    events.forEach(event => {
+        if(event.id == eventId){
+            csvContent += `${sl++},${event.event_name}, ${event.description}, ${event.start_date}, ${event.end_date}, ${event.event_time}, ${event.location}, ${event.organizer}, ${event.capacity}, ${event.registered_attendees}\n`;
+        }
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `event_${eventId}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+document.querySelectorAll('.download-csv').forEach(el => {
+    el.addEventListener('click', function () {
+        download_csv(this.dataset.id);
+    });
+});
 </script>
 
 

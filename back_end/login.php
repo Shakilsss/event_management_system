@@ -86,6 +86,24 @@ if (isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF']) === "login.php
                 }).then(function() {
                         window.location.reload();
                     });
+                } else if(xhr.responseText == 'inactive'){
+
+                    const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                    });
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please wait for admin to approve'
+                    });
+
                 } else {
                     const Toast = Swal.mixin({
                     toast: true,
